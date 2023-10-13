@@ -15,16 +15,13 @@ def login():
 
 @app.route('/register', methods=['POST'])
 def register():
-    if not user.User.validate_register(request.form):
-        return redirect('/login')
-    else:
-        data = {
+    data = {
             "first_name": request.form['first_name'],
             "last_name": request.form['last_name'],
             "email": request.form['email'],
-            "password": request.form['password']
+            "password": bcrypt.generate_password_hash(request.form['password'])
         }
-        user.User.save(data)
+    user.User.save(data)
     print(data)
     return redirect('/dashboard')
 
@@ -38,7 +35,7 @@ def login_user():
     if not user_from_db:
         flash('Incorrect email')
         return redirect('/login')
-    if not bcrypt.check_password_hash(user_from_db):
+    if not bcrypt.check_password_hash(user_from_db, request.form['pwd']):
         flash('Invalid Login')
         return redirect('/login')
     return redirect('/dashboard')

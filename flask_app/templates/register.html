@@ -7,6 +7,7 @@
 </head>
 <body>
     <form action="/register" method="POST">
+        <h2>Register</h2>
         <label for="first_name">First Name:</label><br>
         <input type="text" name="first_name"><br>
         <label for="last_name">last Name:</label><br>
@@ -18,6 +19,14 @@
         <label for="conf_pass">Confirm Password:</label><br>
         <input type="password"><br>
         <button type="submit">Register</button>
+    </form>
+    <form action="/user/login", method="POST">
+        <h2>Login</h2>
+        <label for="email">Email:</label><br>
+        <input type="text" name="email"><br>
+        <label for="password">Password:</label><br>
+        <input type="password" name="pwd"><br>
+        <button type="submit">Login</button>
     </form>
 </body>
 </html>
