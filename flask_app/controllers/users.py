@@ -25,6 +25,7 @@ def register():
             "password": request.form['password']
         }
         user.User.save(data)
+    print(data)
     return redirect('/dashboard')
 
 @app.route('/user/login', methods=['POST'])
