@@ -20,7 +20,7 @@ class Listing:
         # Inserts data from form into listings table in database
         @classmethod
         def save(cls, data):
-            query = "INSERT INTO listings (make_model, listing_condition, year, price, mileage, description, created_at, user_id) VALUES (%(make_model)s, %(listing_condition)s, %(year)s, %(price)s, %(mileage)s, %(description)s, NOW(), %(user_id)s;"
+            query = "INSERT INTO listings (make_model, listing_condition, year, price, mileage, description, created_at, user_id) VALUES (%(make_model)s, %(listing_condition)s, %(year)s, %(price)s, %(mileage)s, %(description)s, NOW(), %(user_id)s);"
             return connectToMySQL(cls.db).query_db(query,data)
 
         # Selects all listings from database with their associated seller to be displayed on the dashboard
