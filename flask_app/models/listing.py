@@ -6,9 +6,9 @@ class Listing:
     db = "dojo_cars"
     def __init__(self,data):
         self.id = data["id"]
-        self.make = data["make"]
-        self.model = data["model"]
+        self.make_model = data["make_model"]
         self.year = data["year"]
+        self.listing_condition = data["listing_condition"]
         self.price = data["price"]
         self.mileage = data["mileage"]
         self.description = data["description"]
@@ -20,7 +20,7 @@ class Listing:
         # Inserts data from form into listings table in database
         @classmethod
         def save(cls, data):
-            query = "INSERT INTO listings (make, model, year, price, mileage, description, created_at, user_id) VALUES (%(make)s, %(model)s, %(year)s, %(price)s, %(mileage)s, %(description)s, NOW(), %(user_id)s;"
+            query = "INSERT INTO listings (make_model, listing_condition, year, price, mileage, description, created_at, user_id) VALUES (%(make_model)s, %(listing_condition)s, %(year)s, %(price)s, %(mileage)s, %(description)s, NOW(), %(user_id)s;"
             return connectToMySQL(cls.db).query_db(query,data)
 
         # Selects all listings from database with their associated seller to be displayed on the dashboard
@@ -33,12 +33,12 @@ class Listing:
                 this_listing = cls(row)
                 user_data = {
                     "id": row['users.id'],
-                "first_name": row['first_name'],
-                "last_name": row['last_name'],
-                "email": row['email'],
-                "password": "",
-                "created_at": row['users.created_at'],
-                "updated_at": row['users.updated_at']
+                    "first_name": row['first_name'],
+                    "last_name": row['last_name'],
+                    "email": row['email'],
+                    "password": "",
+                    "created_at": row['users.created_at'],
+                    "updated_at": row['users.updated_at']
                 }
                 this_listing.seller = user.User(user_data)
                 all_listings.append(this_listing)
@@ -68,7 +68,7 @@ class Listing:
         # Update row in listings table identified by listing id
         @classmethod
         def update(cls,data):
-            query = "UPDATE listings SET make = %(make)s, model = %(model)s, year = %(year)s, price = %(price)s, mileage = %(milage)s, description = %(description)s, updated_at = NOW() WHERE id = %(id)s;"
+            query = "UPDATE listings SET make_model = %(make_model)s, listing_condition = %(listing_condition)s, year = %(year)s, price = %(price)s, mileage = %(milage)s, description = %(description)s, updated_at = NOW() WHERE id = %(id)s;"
             return connectToMySQL(cls.db).quey_db(query, data)
 
         # Deletes row in listings table identified by listing id
@@ -81,11 +81,8 @@ class Listing:
         @staticmethod
         def validate_listing(data):
             is_valid = True
-            if len(data['make']) < 1:
-                flash("Make is required")
-                is_valid = False
-            if len(data['model']) < 1:
-                flash("Model is required")
+            if len(data['make_model']) < 1:
+                flash("Make and Model are required")
                 is_valid = False
             if len(str(data['year'])) !=4:
                 flash("Year must 4 digits")
@@ -95,6 +92,9 @@ class Listing:
                 is_valid = False
             if len(data['description']) < 1:
                 flash("Description is required")
+                is_valid = False
+            if not data['listing_condition']:
+                flash("Condition is required")
                 is_valid = False
             if not data['price']:
                 flash("Price is required")
