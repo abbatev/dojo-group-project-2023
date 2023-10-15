@@ -6,6 +6,13 @@
     <title>Document</title>
 </head>
 <body>
+    {% with messsages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{message}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <form action="/register" method="POST">
         <h2>Register</h2>
         <label for="first_name">First Name:</label><br>
@@ -17,7 +24,7 @@
         <label for="password">Password:</label><br>
         <input type="password" name="password"><br>
         <label for="conf_pass">Confirm Password:</label><br>
-        <input type="password"><br>
+        <input type="password" name="confirm_password"><br>
         <button type="submit">Register</button>
     </form>
     <form action="/user/login", method="POST">
