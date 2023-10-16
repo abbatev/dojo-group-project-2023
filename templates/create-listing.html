@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Listing</title>
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Edit Listing</h1>
+        <button class="dashboard-button">Dashboard</button>
+    </header>
+    <form class="edit-form">
+        <div class="form-group">
+            <label for="make-model">Make/Model:</label>
+            <input type="text" id="make-model" name="make-model">
+        </div>
+        <div class="form-group">
+            <label for="year">Year:</label>
+            <input type="text" id="year" name="year">
+        </div>
+        <div class="form-group">
+            <label for="condition">Condition:</label>
+            <select id="condition" name="condition">
+                <option value="good">Good</option>
+                <option value="fair">Fair</option>
+                <option value="poor">Poor</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="seller">Seller:</label>
+            <input type="text" id="seller" name="seller">
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="number" id="price" name="price">
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4"></textarea>
+        </div>
+        <button class="post-listing-button" type="submit">Post Listing</button>
+    </form>
+</body>
+</html>
