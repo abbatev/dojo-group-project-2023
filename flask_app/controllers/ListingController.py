@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, request, url_for, flash, ses
 from flask_app.models.comment import Comment
 from flask_app.models.user import  User
 from flask_app.models.listing import Listing 
-from flask_app.config.mysqlconnection import connectToMySQL
+from flask_app.config.mysqlconnection import MySQLConnection
 
 app = Flask(__name__)
 
