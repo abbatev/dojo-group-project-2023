@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/listing.css') }}">
+    <title>Car Info</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Car Info</h1>
+        <form action="/Dash">
+            <button type="submit" class="btn btn-link">Dashboard</button>
+        </form>
+    </header>
+    <div class="content">
+        <h2>For sale by {{one_user.first_name}} {{one_user.last_name}}</h2>
+        <ul class="car-info-list">
+            <li><strong>Make/Model:</strong>{{one_listing.make_model}}</li>
+            <li><strong>Year:</strong>{{one_listing.year}}</li>
+            <li><strong>Condition:</strong>{{one_listing.listing_condition}}</li>
+            <li><strong>Price:</strong>{{one_listing.price}}</li>
+            <li><strong>Price:</strong>{{one_listing.mileage}}</li>
+            <li><strong>Description:</strong>{{one_listing.description}}</li>
+        </ul>
+        <a class="listing-link" href="/edit/{{one_listing.id}}">Edit sighting</a>
+        <form action="/delete" method="post">
+            <input type="hidden" name="id" value="{{one_listing.id}}">
+            <button type="submit" class="delete-button">Delete sighting</button>
+        </form>
+    </div>
+</body>
+
+</html>
