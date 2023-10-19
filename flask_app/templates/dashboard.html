@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" type="text/css" href="/static/css/dashboard.css">
+    <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashboard.css') }}"> -->
     <title>Dashboard</title>
 </head>
 
@@ -17,11 +18,6 @@
                     <h1>Dashboard</h1>
                 </div>
                 <div class="header-buttons">
-                    <form action="/dashboard">
-                        <button type="submit" class="btn btn-link">Dashboard</button>
-                    </form>
-                </div>
-                <div class="header-buttons">
                     <form action="/user/logout">
                         <button type="submit" class="logout-button">Log out</button>
                     </form>
@@ -30,48 +26,43 @@
         </header>
         <div class="content">
             <h2>Welcome {{user.first_name}} {{user.last_name}}!</h2>
-                <table class="car-table">
-                    <caption>Cars for sale</caption>
-                    <thead>
-                        <tr>
-                            <th>Make/Model</th>
-                            <th>Year</th>
-                            <th>Condition</th>
-                            <th>Seller</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for one_listing in all_listings %}
-                        <tr>
-                            <td><a class="listing-link" href="/listings/show/{{ one_listing.id }}">{{
-                                    one_listing.make_model }}</a></td>
-                            <td>{{ one_listing.year}}</td>
-                            <td>{{ one_listing.condition}}</td>
-                            <td>{{ one_listing.seller.first_name }} {{ one_listing.seller.last_name }}</td>
-                            <td>$ {{ one_listing.price}}0</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <!-- <div class="comments-section">
+            <table class="car-table">
+                <caption>Cars for sale</caption>
+                <thead>
+                    <tr>
+                        <th>Make/Model</th>
+                        <th>Year</th>
+                        <th>Condition</th>
+                        <th>Seller</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for one_listing in all_listings %}
+                    <tr>
+                        <td><a class="listing-link" href="/listings/show/{{ one_listing.id }}">{{
+                                one_listing.make_model }}</a></td>
+                        <td>{{ one_listing.year}}</td>
+                        <td>{{ one_listing.condition}}</td>
+                        <td>{{ one_listing.seller.first_name }} {{ one_listing.seller.last_name }}</td>
+                        <td>$ {{ one_listing.price}}0</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="create-listing-button">
+            <form action="/listings/new">
+                <button type="submit" class="btn btn-link">Create listing</button>
+            </form>
+        </div>
+        <!-- <div class="comments-section">
                 <h2>Comments</h2>
                 <ul class="comment-list">
                     <li>Comment 1</li>
-                </ul>
-                <form class="comment-form">
-                    <div class="form-group">
-                        <label for="comment">Comment:</label>
-                        <input type="text" id="comment" name="comment">
-                    </div>
-                    <button class="post-comment-button" type="button">Post Comment</button>
-                </form>
+                    <h2>Comments</h2>
+                    </form>
             </div> -->
-        </div>
-        <form action="/listings/new" class="add_button">
-            <button type="submit">Add Listing</button>
-        </form>
-    </div>
 </body>
 
 </html>
