@@ -1,61 +1,54 @@
 from flask_app import app
 from flask import render_template, redirect, request, flash, session
-from flask_app.models import user
+from flask_app.models.user import User
 from flask_bcrypt import Bcrypt
 bcrypt=Bcrypt(app)
 
 
 @app.route('/')
 def home():
-    return render_template('registration-login.html')
+    return redirect('/user/login')
 
-@app.route('/login')
+@app.route('/user/login')
 def login():
+    if 'logged_in_id' in session:
+        return redirect('/dashboard')
     return render_template('registration-login.html')
 
-@app.route('/register', methods=['POST'])
-def register():
-    if not user.User.validate_register(request.form):
+
+@app.route('/user/login/process', methods=['POST'])
+def login_success():
+    data = {
+        "email": request.form['email']
+    }
+    user_from_db = User.get_by_email(data)
+    if not user_from_db:
+        flash('Email not found', "login")
+        return redirect('/user/login')
+    if not bcrypt.check_password_hash(user_from_db.password, request.form['password']):
+        flash('Invalid Password', "login")
         return redirect('/login')
+    session['logged_in_id'] = user_from_db.id
+    return redirect('/dashboard')
+
+@app.route('/user/register/process', methods=['POST'])
+def register_success():
+    if not User.validate_register(request.form):
+        return redirect('/dashboard')
     else:
         data = {
                 "first_name": request.form['first_name'],
                 "last_name": request.form['last_name'],
                 "email": request.form['email'],
-                "password": bcrypt.generate_password_hash(request.form['password'])
+                "password": bcrypt.generate_password_hash(request.form['password']),
+                "created_at": request.form['created_at']
             }
-        user.User.save(data)
-        print(data)
+        id = User.save(data)
+        session['logged_in_id'] = id
     return redirect('/dashboard')
 
-@app.route('/user/login', methods=['POST'])
-def login_user():
-    data = {
-        "email": request.form['email']
-    }
-    
-    user_from_db = user.User.get_by_email(data)
-    if not user_from_db:
-        flash('Incorrect email')
-        return redirect('/login')
-    if not bcrypt.check_password_hash(user_from_db.password, request.form['pwd']):
-        flash('Invalid Login')
-        return redirect('/login')
-    session['logged_in'] = user_from_db.id
-    return redirect('/dashboard')
-
-@app.route('/dashboard')
-def dash():
-    user_from_db = user.User.get_by_id({"id": int (session['logged_in'])})
-    return render_template('dashboard.html', one_user = user_from_db)
-
-@app.route('/listing')
-def listingForm():
-    return render_template('create-listing.html')
-
-@app.route('/logout')
+@app.route('/user/logout')
 def logout():
-    session.clear()
-    return redirect('/')
-
-
+    if 'logged_in_id' in session:
+        session.clear()
+    return redirect('/user/login')

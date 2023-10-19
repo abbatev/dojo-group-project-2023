@@ -6,34 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/listing.css') }}">
-    <title>Car Info</title>
-    <style>
-    </style>
+    <title>Listings</title>
 </head>
 
 <body>
-    <header>
-        <h1>Car Info</h1>
-        <form action="/Dash">
-            <a href="/dashboard">Dashboard</a>
-            <button type="submit" class="btn btn-link">Dashboard</button>
-        </form>
-    </header>
-    <div class="content">
-        <h2>For sale by {{one_user.first_name}} {{one_user.last_name}}</h2>
-        <ul class="car-info-list">
-            <li><strong>Make/Model:</strong>{{one_listing.make_model}}</li>
-            <li><strong>Year:</strong>{{one_listing.year}}</li>
-            <li><strong>Condition:</strong>{{one_listing.listing_condition}}</li>
-            <li><strong>Price:</strong>{{one_listing.price}}</li>
-            <li><strong>Price:</strong>{{one_listing.mileage}}</li>
-            <li><strong>Description:</strong>{{one_listing.description}}</li>
-        </ul>
-        <a class="listing-link" href="/edit/{{one_listing.id}}">Edit sighting</a>
-        <form action="/delete" method="post">
-            <input type="hidden" name="id" value="{{one_listing.id}}">
-            <button type="submit" class="delete-button">Delete sighting</button>
-        </form>
+    <div class="container">
+        <header>
+            <div class="header">
+                <div class="h1">
+                    <h1>{{listing.make_model}}</h1>
+                </div>
+                <div class="header-buttons">
+                    <form action="/dashboard">
+                        <button type="submit" class="btn btn-link">Dashboard</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <div class="content">
+            <h2>For sale by {{listing.seller.first_name}} {{listing.seller.last_name}}</h2>
+            <ul class="car-info-list">
+                <li><strong>Make/Model: </strong>{{listing.make_model}}</li>
+                <li><strong>Year: </strong>{{listing.year}}</li>
+                <li><strong>Condition: </strong>{{listing.condition}}</li>
+                <li><strong>Price:  </strong> ${{listing.price}}0</li>
+                <li><strong>Mileage: </strong>{{listing.mileage}}</li>
+                <li><strong>Description: </strong>{{listing.description}}</li>
+            </ul>
+        </div>
+        {% if listing.user_id == user.id %}
+            <div class="button-container">
+                <form action="/listings/edit/{{listing.id}}">
+                    <button type="submit" class="edit-button">Edit listing</button>
+                </form>
+                <form action="/listings/delete/{{listing.id}}">
+                    <button type="submit" class="delete-button">Delete listing</button>
+                </form>
+            </div>
+        {% endif %}
     </div>
 </body>
 
