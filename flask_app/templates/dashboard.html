@@ -10,40 +10,51 @@
 </head>
 
 <body>
-    <div class="dashboard">
+    <div class="container">
         <header>
-            <h1>Welcome {{one_user.first_name}} {{one_user.last_name}}!</h1>
-            <a href="/listing">Sell your car</a>
-            <button class="sell-button">Sell your car</button>
-            <a href="/logout">Logout</a>
-            <button class="logout-button">Log out</button>
+            <div class="header">
+                <div class="h1">
+                    <h1>Dashboard</h1>
+                </div>
+                <div class="header-buttons">
+                    <form action="/dashboard">
+                        <button type="submit" class="btn btn-link">Dashboard</button>
+                    </form>
+                </div>
+                <div class="header-buttons">
+                    <form action="/user/logout">
+                        <button type="submit" class="logout-button">Log out</button>
+                    </form>
+                </div>
+            </div>
         </header>
         <div class="content">
-            <h2>Cars for Sale</h2>
-            <table class="car-table">
-                <thead>
-                    <tr>
-                        <th>Make/Model</th>
-                        <th>Year</th>
-                        <th>Condition</th>
-                        <th>Seller</th>
-                        <th>Price</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
+            <h2>Welcome {{user.first_name}} {{user.last_name}}!</h2>
+                <table class="car-table">
+                    <caption>Cars for sale</caption>
+                    <thead>
+                        <tr>
+                            <th>Make/Model</th>
+                            <th>Year</th>
+                            <th>Condition</th>
+                            <th>Seller</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for one_listing in all_listings %}
-                    <tr>
-                        <td><a class="listing-link" href="/listing/show/{{ one_listing.id }}">{{ one_listing.make_model }}</a></td>
-                        <td>{{ one_listing.year}}</td>
-                        <td>{{ one_listing.condition}}</td>
-                        <td>{{ one_listing.seller.first_name }} {{ one_listing.seller.last_name }}</td>
-                        <td>{{ one_listing.price}}</td>
-                    </tr>
+                        <tr>
+                            <td><a class="listing-link" href="/listings/show/{{ one_listing.id }}">{{
+                                    one_listing.make_model }}</a></td>
+                            <td>{{ one_listing.year}}</td>
+                            <td>{{ one_listing.condition}}</td>
+                            <td>{{ one_listing.seller.first_name }} {{ one_listing.seller.last_name }}</td>
+                            <td>$ {{ one_listing.price}}0</td>
+                        </tr>
                         {% endfor %}
-                </tbody>
-            </table>
-            <!-- <div class="comments-section">
+                    </tbody>
+                </table>
+                <!-- <div class="comments-section">
                 <h2>Comments</h2>
                 <ul class="comment-list">
                     <li>Comment 1</li>
@@ -57,6 +68,9 @@
                 </form>
             </div> -->
         </div>
+        <form action="/listings/new" class="add_button">
+            <button type="submit">Add Listing</button>
+        </form>
     </div>
 </body>
 
