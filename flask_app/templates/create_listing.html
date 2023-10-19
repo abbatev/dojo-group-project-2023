@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/create_listing.css') }}">
+    <title>Create Listing</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="header">
+                <div class="h1">
+                    <h1>Create listing</h1>
+                </div>
+            </div>
+        </header>
+        <form action="/listings/new/process" method="post">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="alert">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="form-outline">
+                <label for="typeText" class="form-label">Make/model</label>
+                <input type="text" class="form-control" id="make_model" name="make_model" placeholder="">
+            </div>
+            <div class="form-outline">
+                <label for="typeText" class="form-label">Year</label>
+                <input type="number" min="1900"  class="form-control" id="year" name="year" placeholder="2023">
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="condition">Condition</label>
+                <select id="listing_condition" name="condition" class="form-select">
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Poor">Poor</option>
+                </select>
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="typeText">Price</label>
+                <input type="text" id="typeText" class="form-control" name="price" />
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="typeText">Mileage</label>
+                <input type="text" id="typeText" class="form-control" name="mileage" />
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="4"
+                    placeholder="Enter description"></textarea>
+            </div>
+            <div class="form-outline">
+                <input type="hidden" class="hidden" name="user_id" value="{{ session['logged_in_id'] }}">
+                <input type="hidden" name="created_at">
+                <div class="button-container">
+                    <div class="cancel-button">
+                        <a href="/dashboard" class="cancel-button">Cancel</a>
+                    </div>
+                    <div class="save-button">
+                        <button class="save-button">Create listing</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
