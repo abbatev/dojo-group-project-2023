@@ -42,33 +42,33 @@ class User:
     def validate_register(data):
         is_valid = True
         if len(data['email']) < 1:
-            flash("Email must not be blank")
+            flash("Email must not be blank", "register")
             is_valid = False
         elif not EMAIL_REGEX.match(data['email']):
-            flash("Email is invalid")
+            flash("Email is invalid", "register")
             is_valid = False
         elif User.get_by_email(data):
-            flash("Email already in use")
+            flash("Email already in use", "register")
             is_valid = False
         if len(data['first_name']) < 1:
-            flash("First name must not be blank")
+            flash("First name must not be blank", "register")
             is_valid = False
         elif len(data['first_name']) < 2:
-            flash("First name must be at least 2 characters")
+            flash("First name must be at least 2 characters", "register")
             is_valid = False
         if len(data['last_name']) < 1:
-            flash("Last name must not be blank")
+            flash("Last name must not be blank", "register")
             is_valid = False
         elif len(data['last_name']) < 2:
-            flash("Last name must be at least 2 characters")
+            flash("Last name must be at least 2 characters", "register")
             is_valid = False
         if len(data['first_name']) < 1:
-            flash("Password must not be blank")
+            flash("Password must not be blank", "register")
             is_valid = False
         if len(data['password']) < 8:
-            flash("Password must be at least 8 characters")
+            flash("Password must be at least 8 characters", "register")
             is_valid = False
         if data['confirm_password'] != data['password']:
-            flash("Passwords must match")
+            flash("Passwords must match", "register")
             is_valid = False
         return is_valid
