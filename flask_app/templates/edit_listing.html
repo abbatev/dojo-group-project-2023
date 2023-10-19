@@ -3,59 +3,75 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/edit_listing.css') }}">
     <title>Edit listing</title>
 </head>
 
 <body>
-    <header>
-        <h1>Edit listing</h1>
-        <button class="dashboard-button">Dashboard</button>
-    </header>
-    <form action="/edit/listing/" method="post">
-        {% with messages = get_flashed_messages(category_filter=['listing']) %}
-        {% if messages %}
-        {% for message in messages %}
-        <p>{{ message }}</p>
-        {% endfor %}
-        {% endif %}
-        {% endwith %}
-        <div class="form-outline">
-            <label for="typeText" class="form-label">Make/model</label>
-            <input type="text" class="form-control" id="make_model" name="make_model" value="{{one_listing.make_model}}" placeholder="">
-        </div>
-        <div class="form-outline">
-            <label for="typeText" class="form-label">Year</label>
-            <input type="text" class="form-control" id="year" name="year" value="{{one_listing.year}}" placeholder="">
-        </div>
-        <div class="form-outline">
-            <label class="form-label" for="listing_condition">Condition</label>
-            <select id="listing_condition" name="listing_condition" value="{{one_listing.listing_condition}}" class="form-select">
-                <option value="Good">Good</option>
-                <option value="Fair">Fair</option>
-                <option value="Poor">Poor</option>
-            </select>
-        </div>
-        <div class="form-outline">
-            <label class="form-label" for="typeText">Price</label>
-            <input type="text" id="typeText" class="form-control" value="{{one_listing.price}}" name="price" />
-        </div>
-        <div class="form-outline">
-            <label class="form-label" for="typeText">Mileage</label>
-            <input type="text" id="typeText" class="form-control" value="{{one_listing.mileage}}" name="mileage" />
-        </div>
-        <div class="form-outline">
-            <label class="form-label" for="description">Description</label>
-            <textarea id="description" name="description" class="form-control" rows="4" value="{{one_listing.description}}" placeholder="Enter description"></textarea>
-        </div>
-        <div class="mb-3">
-            <input type="hidden" class="hidden" name="user_id" value="{{ session['logged_in_id'] }}">
-        </div>
-        <div class="mb-3">
-            <button class="primary-button">Save listing</button>
-        </div>
-    </form>
+    <div class="container">
+        <header>
+            <div class="header">
+                <div class="h1">
+                    <h1>Edit {{listing.make_model}}</h1>
+                </div>
+            </div>
+        </header>
+        <form action="/listings/edit/process/{{listing.id}}" method="post">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="alert">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="form-outline">
+                <label for="typeText" class="form-label">Make/model</label>
+                <input type="text" class="form-control" id="make_model" name="make_model"
+                    value="{{listing.make_model}}" placeholder="">
+            </div>
+            <div class="form-outline">
+                <label for="typeText" class="form-label">Year</label>
+                <input type="text" class="form-control" id="year" name="year" value="{{listing.year}}"
+                    placeholder="">
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="condition">Condition</label>
+                <select id="listing_condition" name="condition" value="{{listing.condition}}"
+                    class="form-select">
+                    <option value="Good">Good</option>
+                    <option value="Fair">Fair</option>
+                    <option value="Poor">Poor</option>
+                </select>
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="typeText">Price</label>
+                <input type="text" id="typeText" class="form-control" value="{{listing.price}}" name="price" />
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="typeText">Mileage</label>
+                <input type="text" id="typeText" class="form-control" value="{{listing.mileage}}" name="mileage" />
+            </div>
+            <div class="form-outline">
+                <label class="form-label" for="description">Description</label>
+                <textarea id="description" name="description" class="form-control" rows="4"
+                    value="{{listing.description}}" placeholder="Enter description"></textarea>
+            </div>
+            <div class="form-outline">
+                <input type="hidden" class="hidden" name="user_id" value="{{ session['logged_in_id'] }}">
+                <input type="hidden" name="updated_at">
+            </div>
+            <div class="button-container">
+                <div class="cancel-button">
+                    <a href="/dashboard" class="cancel-button">Cancel</a>
+                </div>
+                <div class="save-button">
+                    <button class="save-button">Save listing</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>
