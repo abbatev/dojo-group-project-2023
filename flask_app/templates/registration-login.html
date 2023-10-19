@@ -24,68 +24,69 @@
                 </div>
             </div>
         </header>
-        <div class="left-column">
-            <h2>Registration</h2>
-            <form action="/registration" method="post">
-                {% with messages = get_flashed_messages(category_filter=['reg']) %}
-                {% if messages %}
-                {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-                <div class="form-outline">
-                    <label for="fname" class="form-label">First name</label>
-                    <input type="text" class="form-control" id="fname" name="first_name" placeholder="">
-                </div>
+        <div class="columns">
+            <div class="left-column">
+                <h2>Registration</h2>
+                <form action="/user/register/process" method="post">
+                    {% with messages = get_flashed_messages(category_filter=['register']) %}
+                        {% if messages %}
+                            {% for message in messages %}
+                                <p class="alert">{{ message }}</p>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                    <div class="form-outline">
+                        <label for="fname" class="form-label">First name</label>
+                        <input type="text" class="form-control" id="fname" name="first_name" placeholder="">
+                    </div>
 
-                <div class="form-outline">
-                    <label for="lname" class="form-label">Last name</label>
-                    <input type="text" class="form-control" id="lname" name="last_name" placeholder="">
-                </div>
+                    <div class="form-outline">
+                        <label for="lname" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="lname" name="last_name" placeholder="">
+                    </div>
 
-                <div class="form-outline">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email">
-                </div>
+                    <div class="form-outline">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email">
+                    </div>
 
-                <div class="form-outline">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="password" name="password">
-                </div>
+                    <div class="form-outline">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password">
+                    </div>
 
-                <div class="form-outline">
-                    <label for="conf_password" class="form-label">Confirm password</label>
-                    <input type="password" class="form-control" id="conf_password" name="conf_password">
+                    <div class="form-outline">
+                        <label for="confirm_password" class="form-label">Confirm password</label>
+                        <input type="password" class="form-control" id="conf_password" name="confirm_password">
+                    </div>
+                    <input type="hidden" name="created_at">
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+            <div class="right-column">
+                <h2>Login</h2>
+                <div class="col-md-6">
+                    <form action="/user/login/process" method="post">
+                        {% with messages = get_flashed_messages(category_filter=['login']) %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p class="alert">{{message}}</p>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        <div class="form-outline">
+                            <label for="login-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="login-email" name="email">
+                        </div>
+                        <div class="form-outline">
+                            <label for="login-password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="login-password" name="password" placeholder="">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">Register</button>
-            </form>
+            </div>
         </div>
-    </div>
-    <div class="right-column">
-        <h2>Login</h2>
-        <div class="col-md-6">
-            <form action="/login" method="post">
-                {% with messages = get_flashed_messages(category_filter=['login']) %}
-                {% if messages %}
-                {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
-                {% endif %}
-                {% endwith %}
-                <div class="form-outline">
-                    <label for="login-email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="login-email" name="email">
-                </div>
-                <div class="form-outline">
-                    <label for="login-password" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="login-password" name="password" placeholder="">
-                </div>
-                <button type="submit" class="btn btn-primary">Log in</button>
-            </form>
-        </div>
-    </div>
     </div>
 </body>
-
 </html>
