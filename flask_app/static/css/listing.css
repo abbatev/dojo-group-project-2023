@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .h1 {
+    margin: 0;
+}
+
+.header .header-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.header-buttons button {
+    margin-left: auto;
+}
+
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+.content {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+ul.car-info-list {
+    list-style: none;
+    padding: 0;
+}
+
+ul.car-info-list li {
+    margin-bottom: 10px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+}
+
+.edit-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+.delete-button {
+    background-color: #ff0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
